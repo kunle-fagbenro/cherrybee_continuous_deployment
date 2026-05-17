@@ -8,11 +8,11 @@ jobs:
 
     services:
       postgres:
-        image: postgres:13
+        image: postgres:17
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_USER: runner
-          POSTGRES_DB: book_store_test
+          POSTGRES_DB: cherrybee_book_store
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -21,14 +21,18 @@ jobs:
         ports:
           - 5432:5432
 
+    env:
+      DATABASE_HOST: localhost
+      DATABASE_NAME: cherrybee_book_store
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.13'
 
       - name: Install dependencies
         run: |
@@ -38,8 +42,8 @@ jobs:
 
       - name: Seed database
         run: |
-          psql -h 127.0.0.1 -U runner book_store_test -f seeds/books.sql
-          psql -h 127.0.0.1 -U runner book_store_test -f seeds/users.sql
+          psql -h 127.0.0.1 -U runner cherrybee_book_store -f seeds/books.sql
+          psql -h 127.0.0.1 -U runner cherrybee_book_store -f seeds/users.sql
 
       - name: Start web app
         run: nohup python app.py > app.log 2>&1 &

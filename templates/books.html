@@ -1,0 +1,46 @@
+<!-- <link rel="stylesheet" href="/static/styles.css"> -->
+
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+
+
+<!-- <h1>Children's Book Collection</h1>
+
+<ul>
+  <li>
+    <strong>The Gruffalo</strong><br>
+    Julia Donaldson
+  </li>
+
+  <li>
+    <strong>Ada Twist, Scientist</strong><br>
+    Andrea Beaty
+  </li>
+
+  <li>
+    <strong>The Girl Who Drank the Moon</strong><br>
+    Kelly Barnhill
+  </li>
+
+  <li>
+    <strong>Dragons in a Bag</strong><br>
+    Zetta Elliott
+  </li>
+</ul> -->
+
+<!-- #-------------------------------------------------------------------------------
+# ABOVE COMMENTED OUT,
+# IS UPDATED book.html template so that it uses jinja for loop to iterate through -->
+
+<h1>Books</h1>
+
+<ul>
+  {% for book in books %}
+    <li>{{ book.title }} by {{ book.author }}</li>
+  {% endfor %}
+</ul>
+
+<form method="POST" action="/books">
+    <input type="text" name="title" placeholder="Title">
+    <input type="text" name="author" placeholder="Author">
+    <button type="submit">Submit</button>
+</form>

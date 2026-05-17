@@ -6,9 +6,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      DATABASE_HOST: localhost
+      DATABASE_NAME: cherrybee_book_store
+
     services:
       postgres:
-        image: postgres:17
+        image: postgres:13
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_USER: runner
@@ -21,18 +25,14 @@ jobs:
         ports:
           - 5432:5432
 
-    env:
-      DATABASE_HOST: localhost
-      DATABASE_NAME: cherrybee_book_store
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.13'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
